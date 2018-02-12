@@ -43,7 +43,6 @@ add_action( 'plugins_loaded',
 
 abstract class MaraleIhafPoly {
     
-    private static $instance;
     private static $curlang  = false;
     
     public static function add_hooks() {
@@ -53,25 +52,25 @@ abstract class MaraleIhafPoly {
         if ( !$lock ) {
             
             add_filter( 'pre_option_ihaf_insert_header', 
-                [ MaraleIhafPoly::class, 'pre_option_ihaf_insert_header' ], 
+                [ static::class, 'pre_option_ihaf_insert_header' ], 
                     10, 3 );
             
             add_filter( 'pre_option_ihaf_insert_footer', 
-                [ MaraleIhafPoly::class, 'pre_option_ihaf_insert_footer' ], 
+                [ static::class, 'pre_option_ihaf_insert_footer' ], 
                     10, 3 );
             
             add_filter( 'pre_update_option_ihaf_insert_header', 
-                [ MaraleIhafPoly::class, 'pre_update_option_ihaf_insert_header' ], 
+                [ static::class, 'pre_update_option_ihaf_insert_header' ], 
                     10, 3 );
             
             add_filter( 'pre_update_option_ihaf_insert_footer', 
-                [ MaraleIhafPoly::class, 'pre_update_option_ihaf_insert_footer' ], 
+                [ static::class, 'pre_update_option_ihaf_insert_footer' ], 
                     10, 3 );
             
             //Backend init
-            add_action( 'pll_language_defined', [ MaraleIhafPoly::class, 'init' ] );
+            add_action( 'pll_language_defined', [ static::class, 'init' ] );
             //Fronend init
-            add_action(    'template_redirect', [ MaraleIhafPoly::class, 'init' ] );
+            add_action(    'template_redirect', [ static::class, 'init' ] );
             
             $lock = true;
         }
