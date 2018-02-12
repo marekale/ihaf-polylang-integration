@@ -76,7 +76,7 @@ abstract class MaraleIhafPoly {
         }
     }
     
-    private static function add_option( $lang ) {
+    protected static function add_option( $lang ) {
         
         $_lang = trim( $lang );
         
@@ -88,11 +88,11 @@ abstract class MaraleIhafPoly {
         add_option( 'ihaf_insert_footer' . '_marale_' . $_lang );
     }
     
-    private static function get_current_language() {
+    protected static function get_current_language() {
         return self::$curlang;
     }
     
-    private static function set_current_language() {
+    protected static function set_current_language() {
         self::$curlang = function_exists( 'pll_current_language' ) ?
                 pll_current_language() : false;
     }
