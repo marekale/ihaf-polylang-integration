@@ -50,26 +50,9 @@ abstract class MaraleIhafPoly {
         static $lock = false;
         
         if ( !$lock ) {
-            
-            add_filter( 'pre_option_ihaf_insert_header', 
-                [ static::class, 'pre_option_ihaf_insert_header' ], 
-                    10, 3 );
-            
-            add_filter( 'pre_option_ihaf_insert_footer', 
-                [ static::class, 'pre_option_ihaf_insert_footer' ], 
-                    10, 3 );
-            
-            add_filter( 'pre_update_option_ihaf_insert_header', 
-                [ static::class, 'pre_update_option_ihaf_insert_header' ], 
-                    10, 3 );
-            
-            add_filter( 'pre_update_option_ihaf_insert_footer', 
-                [ static::class, 'pre_update_option_ihaf_insert_footer' ], 
-                    10, 3 );
-            
-            //Backend init
+            // Backend init
             add_action( 'pll_language_defined', [ static::class, 'init' ] );
-            //Fronend init
+            //Frontend init
             add_action(    'template_redirect', [ static::class, 'init' ] );
             
             $lock = true;
@@ -98,11 +81,34 @@ abstract class MaraleIhafPoly {
     }
     
     public static function init() { 
+
+       static $lock = false;
         
-        self::set_current_language();   
-        
-        if ( self::get_current_language() ) {
-            self::add_option( self::get_current_language() );
+       if ( !$lock ) { 
+           
+            static::set_current_language();   
+
+            if ( static::get_current_language() ) {
+                static::add_option( static::get_current_language() );
+            }
+            
+            add_filter( 'pre_option_ihaf_insert_header', 
+                [ static::class, 'pre_option_ihaf_insert_header' ], 
+                    10, 3 );
+
+            add_filter( 'pre_option_ihaf_insert_footer', 
+                [ static::class, 'pre_option_ihaf_insert_footer' ], 
+                    10, 3 );
+
+            add_filter( 'pre_update_option_ihaf_insert_header', 
+                [ static::class, 'pre_update_option_ihaf_insert_header' ], 
+                    10, 3 );
+
+            add_filter( 'pre_update_option_ihaf_insert_footer', 
+                [ static::class, 'pre_update_option_ihaf_insert_footer' ], 
+                    10, 3 );            
+            
+            $lock = true;
         }
     }
     
@@ -112,7 +118,7 @@ abstract class MaraleIhafPoly {
             return $check;
         }
         
-        $current_language = self::get_current_language();
+        $current_language = static::get_current_language();
         
         if ( !$current_language ) {
             return $check;
@@ -127,7 +133,7 @@ abstract class MaraleIhafPoly {
             return $check;
         }
         
-        $current_language = self::get_current_language();
+        $current_language = static::get_current_language();
         
         if ( !$current_language ) {
             return $check;
@@ -141,7 +147,7 @@ abstract class MaraleIhafPoly {
             return $value;
         }
         
-        $current_language = self::get_current_language();
+        $current_language = static::get_current_language();
         
         if ( !$current_language ) {
             return $value;
@@ -160,7 +166,7 @@ abstract class MaraleIhafPoly {
             return $value;
         }
         
-        $current_language = self::get_current_language();
+        $current_language = static::get_current_language();
 
         if ( !$current_language ) {
             return $value;
